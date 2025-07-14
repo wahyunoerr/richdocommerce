@@ -38,6 +38,27 @@
                         <p>Role</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.orders.index') }}"
+                        class="nav-link {{ request()->is('admin/orders*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>Pemesanan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.mutasi.index') }}"
+                        class="nav-link {{ request()->is('admin/mutasi-stok*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-exchange-alt"></i>
+                        <p>Mutasi Stok</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.mutasi.report') }}"
+                        class="nav-link {{ request()->is('admin/mutasi-stok/report') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-clipboard-list"></i>
+                        <p>Laporan Stok</p>
+                    </a>
+                </li>
             @endif
         </ul>
     </nav>

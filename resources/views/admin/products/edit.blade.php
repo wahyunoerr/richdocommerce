@@ -7,7 +7,7 @@
                 <h4 class="mb-0">Edit Produk</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.products.update', $product->id) }}" method="POST">
+                <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
                     <div class="mb-3">
                         <label>Nama Produk</label>
@@ -31,8 +31,17 @@
                         <textarea name="description" class="form-control">{{ $product->description }}</textarea>
                     </div>
                     <div class="mb-3">
-                        <label>Nama File Gambar (upload manual ke /public/images)</label>
-                        <input type="text" name="image" class="form-control" value="{{ $product->image }}">
+                        <label>Upload Gambar Produk (kosongkan jika tidak ingin mengganti)</label>
+                        <input type="file" name="image_file" class="form-control" accept="image/*">
+                        @if ($product->image)
+                            <div class="mt-2">
+                                <img src="{{ asset('storage/' . $product->image) }}" width="120" alt="Gambar Produk">
+                            </div>
+                        @endif
+                    </div>
+                    <div class="mb-3">
+                        <label>Stok</label>
+                        <input type="number" name="stok" class="form-control" value="{{ $product->stok }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                     <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Batal</a>

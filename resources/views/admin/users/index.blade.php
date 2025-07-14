@@ -29,7 +29,8 @@
                                     <td>{{ ($users->currentPage() - 1) * $users->perPage() + $i + 1 }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->roles->pluck('name')->join(', ') }}</td>
+                                    <td>{{ isset($userRoles[$user->id]) ? implode(', ', $userRoles[$user->id]->pluck('name')->toArray()) : '-' }}
+                                    </td>
                                     <td>
                                         <a href="{{ route('admin.users.edit', $user->id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>

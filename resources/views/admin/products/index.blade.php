@@ -22,6 +22,7 @@
                                 <th>Kategori</th>
                                 <th>Harga</th>
                                 <th>Gambar</th>
+                                <th>Stok</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -30,9 +31,10 @@
                                 <tr>
                                     <td>{{ ($products->currentPage() - 1) * $products->perPage() + $i + 1 }}</td>
                                     <td>{{ $product->name }}</td>
-                                    <td>{{ $product->category->name }}</td>
+                                    <td>{{ $product->category_name }}</td>
                                     <td>Rp{{ number_format($product->price, 0, ',', '.') }}</td>
                                     <td><img src="{{ asset('images/' . $product->image) }}" width="60"></td>
+                                    <td>{{ $product->stok }}</td>
                                     <td>
                                         <a href="{{ route('admin.products.edit', $product->id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
@@ -46,7 +48,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center">Tidak ada produk yang ditemukan.</td>
+                                    <td colspan="7" class="text-center">Tidak ada produk yang ditemukan.</td>
                                 </tr>
                             @endforelse
                         </tbody>

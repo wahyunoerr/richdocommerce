@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 12, 2);
-            $table->integer('jumlah')->default(0); // stok produk
+            $table->integer('stok')->default(0);
             $table->string('image')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();

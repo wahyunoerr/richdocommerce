@@ -29,8 +29,9 @@
                         <label>Role</label>
                         <select name="roles[]" class="form-control" multiple required>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->name }}" @if ($user->roles->pluck('name')->contains($role->name)) selected @endif>
-                                    {{ $role->name }}</option>
+                                <option value="{{ $role->name }}" @if (in_array($role->id, DB::table('model_has_roles')->where('model_id', $user->id)->pluck('role_id')->toArray())) selected @endif>
+                                    {{ $role->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

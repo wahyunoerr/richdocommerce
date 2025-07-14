@@ -29,11 +29,11 @@
             $cartCount = count(array_keys($cart));
             $cartProducts = [];
             if ($cartCount > 0) {
-                $cartProducts = \App\Models\Product::whereIn('id', array_keys($cart))->get();
+                $cartProducts = DB::table('products')->whereIn('id', array_keys($cart))->get();
             }
         @endphp
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-            <!-- Messages Dropdown Menu -->
+            <!-- Cart Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                     <i class="fas fa-shopping-cart"></i>
@@ -80,11 +80,27 @@
             </li>
             <!-- User Dropdown/Login -->
             @if (auth()->check())
+                @php
+                    $orderCount = DB::table('orders')
+                        ->where('user_id', auth()->id())
+                        ->whereIn('status', ['pending', 'proses'])
+                        ->count();
+                @endphp
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="far fa-user"></i> {{ auth()->user()->name }}
+                        @if ($orderCount > 0)
+                            <span class="badge badge-warning navbar-badge">{{ $orderCount }}</span>
+                        @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="{{ route('customer.orders') }}" class="dropdown-item">
+                            <i class="fas fa-file-invoice mr-2"></i> Daftar Pesanan
+                            @if ($orderCount > 0)
+                                <span class="badge badge-warning float-right">{{ $orderCount }}</span>
+                            @endif
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="dropdown-item">

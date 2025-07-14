@@ -24,7 +24,7 @@
                         <tbody>
                             @forelse ($roles as $i => $role)
                                 <tr>
-                                    <td>{{ ($roles->currentPage() - 1) * $roles->perPage() + $i + 1 }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         <a href="{{ route('admin.roles.edit', $role->id) }}"

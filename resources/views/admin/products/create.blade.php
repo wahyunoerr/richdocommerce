@@ -7,7 +7,7 @@
                 <h4 class="mb-0">Tambah Produk</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.products.store') }}" method="POST">
+                <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label>Nama Produk</label>
@@ -30,8 +30,12 @@
                         <textarea name="description" class="form-control"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label>Nama File Gambar (upload manual ke /public/images)</label>
-                        <input type="text" name="image" class="form-control">
+                        <label>Upload Gambar Produk</label>
+                        <input type="file" name="image_file" class="form-control" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>Stok</label>
+                        <input type="number" name="stok" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                     <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Batal</a>
