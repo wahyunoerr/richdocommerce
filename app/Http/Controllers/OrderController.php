@@ -56,6 +56,18 @@ class OrderController extends Controller
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
+                    // Mutasi stok otomatis
+                    DB::table('mutasi_stocks')->insert([
+                        'product_id' => $product->id,
+                        'type' => 'out',
+                        'qty' => $qty,
+                        'description' => 'Pengurangan stok otomatis dari transaksi order',
+                        'user_id' => auth()->id(),
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                    // Update stok produk
+                    DB::table('products')->where('id', $product->id)->decrement('stok', $qty);
                 }
             }
         }

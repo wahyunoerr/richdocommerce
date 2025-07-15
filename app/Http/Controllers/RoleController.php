@@ -20,6 +20,7 @@ class RoleController extends Controller
     {
         DB::table('roles')->insert([
             'name' => $request->name,
+            'guard_name' => 'web',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -34,6 +35,7 @@ class RoleController extends Controller
     {
         DB::table('roles')->where('id', $id)->update([
             'name' => $request->name,
+            'guard_name' => 'web', // Spatie membutuhkan kolom ini
             'updated_at' => now(),
         ]);
         return redirect()->route('admin.roles.index')->with('success', 'Role berhasil diupdate');

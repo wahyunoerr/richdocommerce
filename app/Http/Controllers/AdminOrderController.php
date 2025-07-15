@@ -40,6 +40,16 @@ class AdminOrderController extends Controller
             ]);
             $items = DB::table('order_items')->where('order_id', $id)->get();
             foreach ($items as $item) {
+                // Mutasi stok otomatis (jika belum dilakukan di order customer)
+                DB::table('mutasi_stocks')->insert([
+                    'product_id' => $item->product_id,
+                    'type' => 'out',
+                    'qty' => $item->qty,
+                    'description' => 'Pengurangan stok dari verifikasi admin order',
+                    'user_id' => auth()->id(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
                 DB::table('products')->where('id', $item->product_id)->decrement('stok', $item->qty);
             }
         }
